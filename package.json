@@ -1,0 +1,13 @@
+{
+  "name": "mingzhishu",
+  "version": "0.1.0",
+  "private": true,
+  "description": "命之书：写下困惑，获得一句为你而写的话",
+  "type": "module",
+  "engines": { "node": ">=22.9" },
+  "scripts": {
+    "start": "node --env-file-if-exists=.env server/index.js",
+    "test": "node --test \"test/*.test.js\"",
+    "eval": "node --env-file-if-exists=.env scripts/eval-scenarios.js"
+  }
+}
