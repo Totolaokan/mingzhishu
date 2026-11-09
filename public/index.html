@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="color-scheme" content="light dark">
+  <meta name="referrer" content="no-referrer">
+  <title>命之书</title>
+  <link rel="icon" href="data:,">
+  <link rel="stylesheet" href="/styles.css">
+  <script type="module" src="/app.js"></script>
+</head>
+<body>
+  <a class="skip" href="#text">跳到书写处</a>
+
+  <header class="top">
+    <div class="seal" aria-hidden="true">命</div>
+    <h1 class="title">命之书</h1>
+    <button id="motionToggle" class="quiet small" type="button" aria-pressed="false">减少动效</button>
+  </header>
+
+  <main id="book" class="book">
+    <p id="statusNotice" class="notice" role="status" hidden></p>
+
+    <!-- 输入 -->
+    <section id="compose" class="page" aria-labelledby="composeLead">
+      <p id="composeLead" class="lead">把此刻的困惑写下来，或说出来。</p>
+
+      <div id="transcriptNote" class="transcript-note" role="status" hidden>
+        以下含语音转写的文字，可能有听错的地方。请先读一遍、修改，确认无误后再点「开启」。
+      </div>
+
+      <label for="text" class="visually-hidden">你的困惑</label>
+      <textarea id="text" class="paper" rows="6" maxlength="1000"
+        placeholder="比如：此刻让你放不下的那件事……"
+        aria-describedby="counter keyHint inputMsg"></textarea>
+      <div class="meta-row">
+        <span id="inputMsg" class="msg" role="alert"></span>
+        <span id="counter" class="counter" aria-live="off">0 / 1000</span>
+      </div>
+
+      <!-- 语音 -->
+      <div id="voice" class="voice">
+        <div id="voiceIdle" class="voice-row">
+          <button id="voiceStart" class="quiet" type="button">
+            <span class="dot" aria-hidden="true"></span>用语音说
+          </button>
+          <span id="voiceUnavailable" class="muted small" hidden></span>
+        </div>
+
+        <div id="voiceConsent" class="voice-panel" hidden>
+          <p id="voiceDisclosure" class="small"></p>
+          <div class="voice-row">
+            <button id="voiceConfirm" class="quiet strong" type="button">我知道了，开始录音</button>
+            <button id="voiceConsentCancel" class="quiet" type="button">不用了</button>
+          </div>
+        </div>
+
+        <div id="voiceRecording" class="voice-panel" hidden>
+          <p class="recording-line" role="status">
+            <span class="rec" aria-hidden="true"></span>
+            正在录音 <span id="recTime">0:00</span><span class="muted"> / 最长 <span id="recMax">1:30</span></span>
+          </p>
+          <div class="voice-row">
+            <button id="voiceStop" class="quiet strong" type="button">停止并转写</button>
+            <button id="voiceCancel" class="quiet" type="button">放弃这段录音</button>
+          </div>
+        </div>
+
+        <div id="voiceBusy" class="voice-panel" hidden>
+          <p class="small" role="status">正在把录音转成文字……</p>
+        </div>
+
+        <p id="voiceError" class="msg small" role="alert" hidden></p>
+      </div>
+
+      <div class="actions">
+        <button id="open" class="open" type="button">开启</button>
+        <span id="keyHint" class="muted small">Ctrl / ⌘ + Enter 也可开启</span>
+      </div>
+
+      <p id="sendNote" class="send-note small muted"></p>
+
+      <details class="disclosure">
+        <summary>详细说明：文字与录音会去哪里</summary>
+        <div id="disclosureBody" class="small"></div>
+      </details>
+    </section>
+
+    <!-- 等待 -->
+    <section id="waiting" class="page center" hidden aria-busy="true" aria-labelledby="waitingText">
+      <div class="ink" aria-hidden="true"><span></span></div>
+      <p id="waitingText" class="muted" role="status">正在为你翻开这一页……</p>
+    </section>
+
+    <!-- 揭晓 -->
+    <section id="reveal" class="page center" hidden aria-label="写给你的话">
+      <p id="sentence" class="sentence" tabindex="-1"></p>
+
+      <div id="safety" class="safety" hidden>
+        <p id="safetyLead" class="safety-lead"></p>
+        <ul id="safetyList"></ul>
+        <p id="safetyNote" class="small muted"></p>
+        <p id="safetyOrigin" class="small muted"></p>
+      </div>
+
+      <div class="actions center">
+        <button id="again" class="quiet" type="button">合上，回到书写处</button>
+      </div>
+    </section>
+
+    <!-- 失败 -->
+    <section id="failure" class="page center" hidden aria-labelledby="failTitle">
+      <h2 id="failTitle" class="fail-title" tabindex="-1"></h2>
+      <p id="failDetail" class="muted"></p>
+      <div class="actions center">
+        <button id="retry" class="open" type="button">再试一次</button>
+        <button id="back" class="quiet" type="button">返回修改</button>
+      </div>
+    </section>
+  </main>
+
+  <footer class="foot small muted">
+    <p>不建账号，不留历史；应用日志不记录你写下的内容。这不是心理咨询或医疗服务。</p>
+  </footer>
+</body>
+</html>
